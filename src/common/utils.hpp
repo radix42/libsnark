@@ -26,7 +26,7 @@ size_t log2(size_t n);
 inline size_t exp2(size_t k) { return 1ul << k; }
 
 size_t bitreverse(size_t n, const size_t l);
-bit_vector int_list_to_bits(const std::initializer_list<unsigned long> &l, const size_t wordsize);
+bit_vector int_list_to_bits(const std::initializer_list<unsigned long long> &l, const size_t wordsize);
 long long div_ceil(long long x, long long y);
 
 bool is_little_endian();

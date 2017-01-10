@@ -18,9 +18,9 @@
 namespace libsnark {
 
 template<mp_size_t n>
-bigint<n>::bigint(const unsigned long x) /// Initalize from a small integer
+bigint<n>::bigint(const unsigned long long x) /// Initalize from a small integer
 {
-    static_assert(ULONG_MAX <= GMP_NUMB_MAX, "unsigned long does not fit in a GMP limb");
+    static_assert(ULONG_MAX <= GMP_NUMB_MAX, "unsigned long long does not fit in a GMP limb");
     this->data[0] = x;
 }
 
@@ -132,7 +132,7 @@ size_t bigint<n>::num_bits() const
 }
 
 template<mp_size_t n>
-unsigned long bigint<n>::as_ulong() const
+unsigned long long bigint<n>::as_ulong() const
 {
     return this->data[0];
 }

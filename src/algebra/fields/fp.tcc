@@ -210,7 +210,7 @@ Fp_model<n,modulus>::Fp_model(const long x, const bool is_unsigned)
 }
 
 template<mp_size_t n, const bigint<n>& modulus>
-void Fp_model<n,modulus>::set_ulong(const unsigned long x)
+void Fp_model<n,modulus>::set_ulong(const unsigned long long x)
 {
     this->mont_repr.clear();
     this->mont_repr.data[0] = x;
@@ -237,7 +237,7 @@ bigint<n> Fp_model<n,modulus>::as_bigint() const
 }
 
 template<mp_size_t n, const bigint<n>& modulus>
-unsigned long Fp_model<n,modulus>::as_ulong() const
+unsigned long long Fp_model<n,modulus>::as_ulong() const
 {
     return this->as_bigint().as_ulong();
 }
@@ -502,7 +502,7 @@ Fp_model<n,modulus>& Fp_model<n,modulus>::operator*=(const Fp_model<n,modulus>& 
 }
 
 template<mp_size_t n, const bigint<n>& modulus>
-Fp_model<n,modulus>& Fp_model<n,modulus>::operator^=(const unsigned long pow)
+Fp_model<n,modulus>& Fp_model<n,modulus>::operator^=(const unsigned long long pow)
 {
     (*this) = power<Fp_model<n, modulus> >(*this, pow);
     return (*this);
@@ -538,7 +538,7 @@ Fp_model<n,modulus> Fp_model<n,modulus>::operator*(const Fp_model<n,modulus>& ot
 }
 
 template<mp_size_t n, const bigint<n>& modulus>
-Fp_model<n,modulus> Fp_model<n,modulus>::operator^(const unsigned long pow) const
+Fp_model<n,modulus> Fp_model<n,modulus>::operator^(const unsigned long long pow) const
 {
     Fp_model<n, modulus> r(*this);
     return (r ^= pow);

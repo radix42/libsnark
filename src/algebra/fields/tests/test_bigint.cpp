@@ -11,7 +11,7 @@ using namespace libsnark;
 
 void test_bigint()
 {
-    static_assert(ULLONG_MAX == 0xFFFFFFFFFFFFFFFFul, "unsigned long long not 64-bit");
+    static_assert(ULLONG_MAX == 0xFFFFFFFFFFFFFFFFull, "unsigned long long not 64-bit");
     static_assert(GMP_NUMB_BITS == 64, "GMP limb not 64-bit");
 
     const char *b1_decimal = "76749407";
@@ -20,15 +20,15 @@ void test_bigint()
     const char *b2_binary = "0000000000000000000000000000010101111101101000000110100001011010"
                             "1101101010001001000001101000101000100110011001110001111110100010";
 
-    //    bigint<1> b0 = bigint<1>(0ul);
+    bigint<1> b0 = bigint<1>(0ull);
     bigint<1> b1 = bigint<1>(b1_decimal);
     bigint<2> b2 = bigint<2>(b2_decimal);
 
-    assert(b0.as_ulong() == 0ul);
+    assert(b0.as_ulong() == 0ull);
     assert(b0.is_zero());
-    assert(b1.as_ulong() == 76749407ul);
+    assert(b1.as_ulong() == 76749407ull);
     assert(!(b1.is_zero()));
-    assert(b2.as_ulong() == 15747124762497195938ul);
+    assert(b2.as_ulong() == 15747124762497195938ull);
     assert(!(b2.is_zero()));
     assert(b0 != b1);
     assert(!(b0 == b1));

@@ -191,7 +191,7 @@ T multi_exp_inner(typename std::vector<T>::const_iterator vec_start,
     if (vec_len != odd_vec_len)
     {
         g.emplace_back(T::zero());
-        opt_q.emplace_back(ordered_exponent<n>(odd_vec_len - 1, bigint<n>(0ul)));
+        opt_q.emplace_back(ordered_exponent<n>(odd_vec_len - 1, bigint<n>(0ull)));
     }
     assert_except(g.size() % 2 == 1);
     assert_except(opt_q.size() == g.size());

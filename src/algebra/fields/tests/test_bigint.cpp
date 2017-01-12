@@ -20,15 +20,15 @@ void test_bigint()
     const char *b2_binary = "0000000000000000000000000000010101111101101000000110100001011010"
                             "1101101010001001000001101000101000100110011001110001111110100010";
 
-    bigint<1> b0 = bigint<1>(0ul);
+    bigint<1> b0 = bigint<1>(UINT64_C(0));
     bigint<1> b1 = bigint<1>(b1_decimal);
     bigint<2> b2 = bigint<2>(b2_decimal);
 
-    assert(b0.as_ulong() == 0ul);
+    assert(b0.as_ulong() == UINT64_C(0));
     assert(b0.is_zero());
-    assert(b1.as_ulong() == 76749407ul);
+    assert(b1.as_ulong() == UINT64_C(76749407));
     assert(!(b1.is_zero()));
-    assert(b2.as_ulong() == 15747124762497195938ul);
+    assert(b2.as_ulong() == UINT64_C(15747124762497195938));
     assert(!(b2.is_zero()));
     assert(b0 != b1);
     assert(!(b0 == b1));

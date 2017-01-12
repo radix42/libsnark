@@ -90,9 +90,9 @@ int main()
 
     const size_t num_inputs = 10;
 
-    const size_t basic_domain_size = 1ul<<mnt6_Fr::s;
-    const size_t step_domain_size = (1ul<<10) + (1ul<<8);
-    const size_t extended_domain_size = 1ul<<(mnt6_Fr::s+1);
+    const size_t basic_domain_size = UINT64_C(1)<<mnt6_Fr::s;
+    const size_t step_domain_size = (UINT64_C(1)<<10) + (UINT64_C(1)<<8);
+    const size_t extended_domain_size = UINT64_C(1)<<(mnt6_Fr::s+1);
     const size_t extended_domain_size_special = extended_domain_size-1;
 
     enter_block("Test QAP with binary input");

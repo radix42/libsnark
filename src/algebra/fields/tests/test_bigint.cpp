@@ -5,13 +5,14 @@
  * @copyright  MIT license (see LICENSE file)
  *****************************************************************************/
 
+#include <iostream>
 #include "algebra/fields/bigint.hpp"
 
 using namespace libsnark;
 
 void test_bigint()
 {
-    static_assert(ULONG_MAX == 0xFFFFFFFFFFFFFFFFul, "unsigned long not 64-bit");
+    static_assert(ULLONG_MAX == 0xFFFFFFFFFFFFFFFFul, "unsigned long not 64-bit");
     static_assert(GMP_NUMB_BITS == 64, "GMP limb not 64-bit");
 
     const char *b1_decimal = "76749407";
@@ -20,7 +21,7 @@ void test_bigint()
     const char *b2_binary = "0000000000000000000000000000010101111101101000000110100001011010"
                             "1101101010001001000001101000101000100110011001110001111110100010";
 
-    bigint<1> b0 = bigint<1>(0ul);
+    bigint<1> b0 = bigint<1>(0ull);
     bigint<1> b1 = bigint<1>(b1_decimal);
     bigint<2> b2 = bigint<2>(b2_decimal);
 
@@ -102,6 +103,7 @@ void test_bigint()
 int main(void)
 {
     test_bigint();
+    std::cout << "mission complete!" << std::endl;
     return 0;
 }
 

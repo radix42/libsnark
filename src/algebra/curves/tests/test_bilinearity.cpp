@@ -5,13 +5,13 @@
  * @copyright  MIT license (see LICENSE file)
  *****************************************************************************/
 #include "common/profiling.hpp"
-#include "algebra/curves/edwards/edwards_pp.hpp"
+//#include "algebra/curves/edwards/edwards_pp.hpp"
 #ifdef CURVE_BN128
 #include "algebra/curves/bn128/bn128_pp.hpp"
 #endif
 #include "algebra/curves/alt_bn128/alt_bn128_pp.hpp"
-#include "algebra/curves/mnt/mnt4/mnt4_pp.hpp"
-#include "algebra/curves/mnt/mnt6/mnt6_pp.hpp"
+//#include "algebra/curves/mnt/mnt4/mnt4_pp.hpp"
+//#include "algebra/curves/mnt/mnt6/mnt6_pp.hpp"
 
 using namespace libsnark;
 
@@ -44,8 +44,11 @@ void pairing_test()
     GT<ppT> ans2 = ppT::reduced_pairing(P, sQ);
     GT<ppT> ans3 = ppT::reduced_pairing(P, Q)^s;
     ans1.print();
+    printf("\n");
     ans2.print();
+    printf("\n");
     ans3.print();
+    printf("\n");
     assert(ans1 == ans2);
     assert(ans2 == ans3);
 
@@ -110,6 +113,7 @@ void affine_pairing_test()
 int main(void)
 {
     start_profiling();
+/*
     edwards_pp::init_public_params();
     pairing_test<edwards_pp>();
     double_miller_loop_test<edwards_pp>();
@@ -123,7 +127,7 @@ int main(void)
     pairing_test<mnt4_pp>();
     double_miller_loop_test<mnt4_pp>();
     affine_pairing_test<mnt4_pp>();
-
+*/
     alt_bn128_pp::init_public_params();
     pairing_test<alt_bn128_pp>();
     double_miller_loop_test<alt_bn128_pp>();

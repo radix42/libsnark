@@ -18,9 +18,9 @@
 namespace libsnark {
 
 template<mp_size_t n>
-bigint<n>::bigint(const unsigned long x) /// Initalize from a small integer
+bigint<n>::bigint(const unsigned long long x) /// Initalize from a small integer
 {
-    static_assert(ULONG_MAX <= GMP_NUMB_MAX, "unsigned long does not fit in a GMP limb");
+    static_assert(ULLONG_MAX <= GMP_NUMB_MAX, "unsigned long does not fit in a GMP limb");
     this->data[0] = x;
 }
 
@@ -151,7 +151,7 @@ void bigint<n>::to_mpz(mpz_t r) const
 }
 
 template<mp_size_t n>
-bool bigint<n>::test_bit(const std::size_t bitno) const
+bool bigint<n>::test_bit(const unsigned long long bitno) const
 {
     if (bitno >= n * GMP_NUMB_BITS)
     {
@@ -159,8 +159,8 @@ bool bigint<n>::test_bit(const std::size_t bitno) const
     }
     else
     {
-        const std::size_t part = bitno/GMP_NUMB_BITS;
-        const std::size_t bit = bitno - (GMP_NUMB_BITS*part);
+        const unsigned long long part = bitno/GMP_NUMB_BITS;
+        const unsigned long long bit = bitno - (GMP_NUMB_BITS*part);
         const mp_limb_t one = 1;
         return (this->data[part] & (one<<bit));
     }

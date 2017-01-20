@@ -194,7 +194,7 @@ std::istream& operator>>(std::istream& in, std::vector<Fp6_3over2_model<n, modul
 {
     v.clear();
 
-    size_t s;
+    unsigned long long s;
     in >> s;
 
     char b;

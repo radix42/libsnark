@@ -5,9 +5,11 @@
  * @copyright  MIT license (see LICENSE file)
  *****************************************************************************/
 #include "common/profiling.hpp"
+/*
 #include "algebra/curves/edwards/edwards_pp.hpp"
 #include "algebra/curves/mnt/mnt4/mnt4_pp.hpp"
 #include "algebra/curves/mnt/mnt6/mnt6_pp.hpp"
+*/
 #ifdef CURVE_BN128
 #include "algebra/curves/bn128/bn128_pp.hpp"
 #endif
@@ -98,6 +100,7 @@ void test_unitary_inverse()
 template<typename FieldT>
 void test_cyclotomic_squaring();
 
+/*
 template<>
 void test_cyclotomic_squaring<Fqk<edwards_pp> >()
 {
@@ -133,6 +136,7 @@ void test_cyclotomic_squaring<Fqk<mnt6_pp> >()
     FieldT beta = a_unitary.Frobenius_map(1) * a_unitary;
     assert(beta.cyclotomic_squared() == beta.squared());
 }
+*/
 
 template<typename ppT>
 void test_all_fields()
@@ -218,7 +222,8 @@ void test_Fp4_tom_cook()
 
 int main(void)
 {
-    edwards_pp::init_public_params();
+/* 
+   edwards_pp::init_public_params();
     test_all_fields<edwards_pp>();
     test_cyclotomic_squaring<Fqk<edwards_pp> >();
 
@@ -231,15 +236,15 @@ int main(void)
     mnt6_pp::init_public_params();
     test_all_fields<mnt6_pp>();
     test_cyclotomic_squaring<Fqk<mnt6_pp> >();
-
+*/
     alt_bn128_pp::init_public_params();
     test_field<alt_bn128_Fq6>();
     test_Frobenius<alt_bn128_Fq6>();
     test_all_fields<alt_bn128_pp>();
 
 #ifdef CURVE_BN128       // BN128 has fancy dependencies so it may be disabled
-    bn128_pp::init_public_params();
-    test_field<Fr<bn128_pp> >();
-    test_field<Fq<bn128_pp> >();
+//    bn128_pp::init_public_params();
+//    test_field<Fr<bn128_pp> >();
+//    test_field<Fq<bn128_pp> >();
 #endif
 }

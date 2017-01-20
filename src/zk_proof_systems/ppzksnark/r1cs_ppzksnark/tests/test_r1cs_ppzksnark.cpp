@@ -11,6 +11,8 @@
 #include <cassert>
 #include <cstdio>
 
+#include "zk_proof_systems/ppzksnark/r1cs_ppzksnark/r1cs_ppzksnark_params.hpp"
+#include "common/default_types/ec_pp.hpp"
 #include "common/default_types/r1cs_ppzksnark_pp.hpp"
 #include "common/profiling.hpp"
 #include "common/utils.hpp"

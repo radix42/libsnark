@@ -31,17 +31,17 @@ template<mp_size_t n>
 class ordered_exponent {
 // to use std::push_heap and friends later
 public:
-    size_t idx;
+    unsigned long long idx;
     bigint<n> r;
 
-    ordered_exponent(const size_t idx, const bigint<n> &r) : idx(idx), r(r) {};
+    ordered_exponent(const unsigned long long idx, const bigint<n> &r) : idx(idx), r(r) {};
 
     bool operator<(const ordered_exponent<n> &other) const
     {
 #if defined(__x86_64__) && defined(USE_ASM)
         if (n == 3)
         {
-            long res;
+            long long res;
             __asm__
                 ("// check for overflow           \n\t"
                  "mov $0, %[res]                  \n\t"
@@ -59,7 +59,7 @@ public:
         }
         else if (n == 4)
         {
-            long res;
+            long long res;
             __asm__
                 ("// check for overflow           \n\t"
                  "mov $0, %[res]                  \n\t"
@@ -78,7 +78,7 @@ public:
         }
         else if (n == 5)
         {
-            long res;
+            long long res;
             __asm__
                 ("// check for overflow           \n\t"
                  "mov $0, %[res]                  \n\t"
@@ -170,15 +170,15 @@ T multi_exp_inner(typename std::vector<T>::const_iterator vec_start,
     }
 
     std::vector<ordered_exponent<n> > opt_q;
-    const size_t vec_len = scalar_end - scalar_start;
-    const size_t odd_vec_len = (vec_len % 2 == 1 ? vec_len : vec_len + 1);
+    const unsigned long long vec_len = scalar_end - scalar_start;
+    const unsigned long long odd_vec_len = (vec_len % 2 == 1 ? vec_len : vec_len + 1);
     opt_q.reserve(odd_vec_len);
     std::vector<T> g;
     g.reserve(odd_vec_len);
 
     typename std::vector<T>::const_iterator vec_it;
     typename std::vector<FieldT>::const_iterator scalar_it;
-    size_t i;
+    unsigned long long i;
     for (i=0, vec_it = vec_start, scalar_it = scalar_start; vec_it != vec_end; ++vec_it, ++scalar_it, ++i)
     {
         g.emplace_back(*vec_it);
@@ -203,7 +203,7 @@ T multi_exp_inner(typename std::vector<T>::const_iterator vec_start,
         ordered_exponent<n> &a = opt_q[0];
         ordered_exponent<n> &b = (opt_q[1] < opt_q[2] ? opt_q[2] : opt_q[1]);
 
-        const size_t abits = a.r.num_bits();
+        const unsigned long long abits = a.r.num_bits();
 
         if (b.r.is_zero())
         {
@@ -212,8 +212,8 @@ T multi_exp_inner(typename std::vector<T>::const_iterator vec_start,
             break;
         }
 
-        const size_t bbits = b.r.num_bits();
-        const size_t limit = (abits-bbits >= 20 ? 20 : abits-bbits);
+        const unsigned long long bbits = b.r.num_bits();
+        const unsigned long long limit = (abits-bbits >= 20 ? 20 : abits-bbits);
 
         if (bbits < 1ul<<limit)
         {
@@ -240,7 +240,7 @@ T multi_exp_inner(typename std::vector<T>::const_iterator vec_start,
         // regardless of whether a was cleared or subtracted from we push it down, then take back up
 
         /* heapify A down */
-        size_t a_pos = 0;
+        unsigned long long a_pos = 0;
         while (2*a_pos + 2< odd_vec_len)
         {
             // this is a max-heap so to maintain a heap property we swap with the largest of the two
@@ -272,16 +272,16 @@ T multi_exp(typename std::vector<T>::const_iterator vec_start,
             typename std::vector<T>::const_iterator vec_end,
             typename std::vector<FieldT>::const_iterator scalar_start,
             typename std::vector<FieldT>::const_iterator scalar_end,
-            const size_t chunks,
+            const unsigned long long chunks,
             const bool use_multiexp)
 {
-    const size_t total = vec_end - vec_start;
+    const unsigned long long total = vec_end - vec_start;
     if (total < chunks)
     {
         return naive_exp<T, FieldT>(vec_start, vec_end, scalar_start, scalar_end);
     }
 
-    const size_t one = total/chunks;
+    const unsigned long long one = total/chunks;
 
     std::vector<T> partial(chunks, T::zero());
 
@@ -327,7 +327,7 @@ T multi_exp_with_mixed_addition(typename std::vector<T>::const_iterator vec_star
                                 typename std::vector<T>::const_iterator vec_end,
                                 typename std::vector<FieldT>::const_iterator scalar_start,
                                 typename std::vector<FieldT>::const_iterator scalar_end,
-                                const size_t chunks,
+                                const unsigned long long chunks,
                                 const bool use_multiexp)
 {
     assert_except(std::distance(vec_start, vec_end) == std::distance(scalar_start, scalar_end));
@@ -342,9 +342,9 @@ T multi_exp_with_mixed_addition(typename std::vector<T>::const_iterator vec_star
 
     T acc = T::zero();
 
-    size_t num_skip = 0;
-    size_t num_add = 0;
-    size_t num_other = 0;
+    unsigned long long num_skip = 0;
+    unsigned long long num_add = 0;
+    unsigned long long num_other = 0;
 
     for (; scalar_it != scalar_end; ++scalar_it, ++value_it)
     {
@@ -379,7 +379,7 @@ T multi_exp_with_mixed_addition(typename std::vector<T>::const_iterator vec_star
 }
 
 template<typename T>
-size_t get_exp_window_size(const size_t num_scalars)
+unsigned long long get_exp_window_size(const unsigned long long num_scalars)
 {
     if (T::fixed_base_exp_window_table.empty())
     {
@@ -389,7 +389,7 @@ size_t get_exp_window_size(const size_t num_scalars)
         return 17;
 #endif
     }
-    size_t window = 1;
+    unsigned long long window = 1;
     for (long i = T::fixed_base_exp_window_table.size()-1; i >= 0; --i)
     {
 #ifdef DEBUG
@@ -411,19 +411,19 @@ size_t get_exp_window_size(const size_t num_scalars)
     }
 
 #ifdef LOWMEM
-    window = std::min((size_t)14, window);
+    window = std::min((unsigned long long)14, window);
 #endif
     return window;
 }
 
 template<typename T>
-window_table<T> get_window_table(const size_t scalar_size,
-                                 const size_t window,
+window_table<T> get_window_table(const unsigned long long scalar_size,
+                                 const unsigned long long window,
                                  const T &g)
 {
-    const size_t in_window = 1ul<<window;
-    const size_t outerc = (scalar_size+window-1)/window;
-    const size_t last_in_window = 1ul<<(scalar_size - (outerc-1)*window);
+    const unsigned long long in_window = 1ul<<window;
+    const unsigned long long outerc = (scalar_size+window-1)/window;
+    const unsigned long long last_in_window = 1ul<<(scalar_size - (outerc-1)*window);
 #ifdef DEBUG
     if (!inhibit_profiling_info)
     {
@@ -435,11 +435,11 @@ window_table<T> get_window_table(const size_t scalar_size,
 
     T gouter = g;
 
-    for (size_t outer = 0; outer < outerc; ++outer)
+    for (unsigned long long outer = 0; outer < outerc; ++outer)
     {
         T ginner = T::zero();
-        size_t cur_in_window = outer == outerc-1 ? last_in_window : in_window;
-        for (size_t inner = 0; inner < cur_in_window; ++inner)
+        unsigned long long cur_in_window = outer == outerc-1 ? last_in_window : in_window;
+        for (unsigned long long inner = 0; inner < cur_in_window; ++inner)
         {
             powers_of_g[outer][inner] = ginner;
             ginner = ginner + gouter;
@@ -455,21 +455,21 @@ window_table<T> get_window_table(const size_t scalar_size,
 }
 
 template<typename T, typename FieldT>
-T windowed_exp(const size_t scalar_size,
-               const size_t window,
+T windowed_exp(const unsigned long long scalar_size,
+               const unsigned long long window,
                const window_table<T> &powers_of_g,
                const FieldT &pow)
 {
-    const size_t outerc = (scalar_size+window-1)/window;
+    const unsigned long long outerc = (scalar_size+window-1)/window;
     const bigint<FieldT::num_limbs> pow_val = pow.as_bigint();
 
     /* exp */
     T res = powers_of_g[0][0];
 
-    for (size_t outer = 0; outer < outerc; ++outer)
+    for (unsigned long long outer = 0; outer < outerc; ++outer)
     {
-        size_t inner = 0;
-        for (size_t i = 0; i < window; ++i)
+        unsigned long long inner = 0;
+        for (unsigned long long i = 0; i < window; ++i)
         {
             if (pow_val.test_bit(outer*window + i))
             {
@@ -484,8 +484,8 @@ T windowed_exp(const size_t scalar_size,
 }
 
 template<typename T, typename FieldT>
-std::vector<T> batch_exp(const size_t scalar_size,
-                         const size_t window,
+std::vector<T> batch_exp(const unsigned long long scalar_size,
+                         const unsigned long long window,
                          const window_table<T> &table,
                          const std::vector<FieldT> &v)
 {
@@ -518,8 +518,8 @@ std::vector<T> batch_exp(const size_t scalar_size,
 }
 
 template<typename T, typename FieldT>
-std::vector<T> batch_exp_with_coeff(const size_t scalar_size,
-                                    const size_t window,
+std::vector<T> batch_exp_with_coeff(const unsigned long long scalar_size,
+                                    const unsigned long long window,
                                     const window_table<T> &table,
                                     const FieldT &coeff,
                                     const std::vector<FieldT> &v)

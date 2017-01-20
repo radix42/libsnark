@@ -17,9 +17,9 @@
 namespace libsnark {
 
 template<mp_size_t n>
-std::vector<long> find_wnaf(const size_t window_size, const bigint<n> &scalar)
+std::vector<long> find_wnaf(const unsigned long long window_size, const bigint<n> &scalar)
 {
-    const size_t length = scalar.max_bits(); // upper bound
+    const unsigned long long length = scalar.max_bits(); // upper bound
     std::vector<long> res(length+1);
     bigint<n> c = scalar;
     long j = 0;
@@ -57,7 +57,7 @@ std::vector<long> find_wnaf(const size_t window_size, const bigint<n> &scalar)
 }
 
 template<typename T, mp_size_t n>
-T fixed_window_wnaf_exp(const size_t window_size, const T &base, const bigint<n> &scalar)
+T fixed_window_wnaf_exp(const unsigned long long window_size, const T &base, const bigint<n> &scalar)
 {
     std::vector<long> naf = find_wnaf(window_size, scalar);
     std::vector<T> table(1ul<<(window_size-1));
@@ -96,9 +96,9 @@ T fixed_window_wnaf_exp(const size_t window_size, const T &base, const bigint<n>
 }
 
 template<typename T, mp_size_t n>
-T opt_window_wnaf_exp(const T &base, const bigint<n> &scalar, const size_t scalar_bits)
+T opt_window_wnaf_exp(const T &base, const bigint<n> &scalar, const unsigned long long scalar_bits)
 {
-    size_t best = 0;
+    unsigned long long best = 0;
     for (long i = T::wnaf_window_table.size() - 1; i >= 0; --i)
     {
         if (scalar_bits >= T::wnaf_window_table[i])

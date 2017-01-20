@@ -15,8 +15,8 @@ long long alt_bn128_G1::add_cnt = 0;
 long long alt_bn128_G1::dbl_cnt = 0;
 #endif
 
-std::vector<size_t> alt_bn128_G1::wnaf_window_table;
-std::vector<size_t> alt_bn128_G1::fixed_base_exp_window_table;
+std::vector<unsigned long long> alt_bn128_G1::wnaf_window_table;
+std::vector<unsigned long long> alt_bn128_G1::fixed_base_exp_window_table;
 alt_bn128_G1 alt_bn128_G1::G1_zero;
 alt_bn128_G1 alt_bn128_G1::G1_one;
 
@@ -480,7 +480,7 @@ std::istream& operator>>(std::istream& in, std::vector<alt_bn128_G1> &v)
 {
     v.clear();
 
-    size_t s;
+    unsigned long long s;
     in >> s;
     consume_newline(in);
 

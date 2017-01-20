@@ -33,7 +33,7 @@ public:
     mp_limb_t data[n] = {0};
 
     bigint() = default;
-    bigint(const unsigned long x); /// Initalize from a small integer
+    bigint(const unsigned long long x); /// Initalize from a small integer
     bigint(const char* s); /// Initialize from a string containing an integer in decimal notation
     bigint(const mpz_t r); /// Initialize from MPZ element
 
@@ -48,7 +48,7 @@ public:
 
     unsigned long long as_ulong() const; /* return the last limb of the integer */
     void to_mpz(mpz_t r) const;
-    bool test_bit(const std::size_t bitno) const;
+    bool test_bit(const unsigned long long bitno) const;
 
     template<mp_size_t m> inline void operator+=(const bigint<m>& other);
     template<mp_size_t m> inline bigint<n+m> operator*(const bigint<m>& other) const;

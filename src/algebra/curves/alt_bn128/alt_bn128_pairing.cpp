@@ -87,7 +87,7 @@ std::istream& operator>>(std::istream& in, alt_bn128_ate_G2_precomp &prec_Q)
     consume_newline(in);
 
     prec_Q.coeffs.clear();
-    size_t s;
+    unsigned long long s;
     in >> s;
 
     consume_newline(in);
@@ -373,7 +373,7 @@ alt_bn128_Fq12 alt_bn128_ate_miller_loop(const alt_bn128_ate_G1_precomp &prec_P,
     alt_bn128_Fq12 f = alt_bn128_Fq12::one();
 
     bool found_one = false;
-    size_t idx = 0;
+    unsigned long long idx = 0;
 
     const bigint<alt_bn128_Fr::num_limbs> &loop_count = alt_bn128_ate_loop_count;
     alt_bn128_ate_ell_coeffs c;
@@ -429,7 +429,7 @@ alt_bn128_Fq12 alt_bn128_ate_double_miller_loop(const alt_bn128_ate_G1_precomp &
     alt_bn128_Fq12 f = alt_bn128_Fq12::one();
 
     bool found_one = false;
-    size_t idx = 0;
+    unsigned long long idx = 0;
 
     const bigint<alt_bn128_Fr::num_limbs> &loop_count = alt_bn128_ate_loop_count;
     for (long i = loop_count.max_bits(); i >= 0; --i)

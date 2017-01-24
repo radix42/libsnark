@@ -87,7 +87,7 @@ std::istream& operator>>(std::istream& in, alt_bn128_ate_G2_precomp &prec_Q)
     consume_newline(in);
 
     prec_Q.coeffs.clear();
-    unsigned long long s;
+    size_t s;
     in >> s;
 
     consume_newline(in);
@@ -229,8 +229,9 @@ alt_bn128_GT alt_bn128_final_exponentiation(const alt_bn128_Fq12 &elt)
     /* OLD naive version:
         alt_bn128_GT result = elt^alt_bn128_final_exponent;
     */
-    alt_bn128_Fq12 A = alt_bn128_final_exponentiation_first_chunk(elt);
-    alt_bn128_GT result = alt_bn128_final_exponentiation_last_chunk(A);
+    alt_bn128_GT result = elt^alt_bn128_final_exponent;
+    //alt_bn128_Fq12 A = alt_bn128_final_exponentiation_first_chunk(elt);
+    //alt_bn128_GT result = alt_bn128_final_exponentiation_last_chunk(A);
 
     leave_block("Call to alt_bn128_final_exponentiation");
     return result;
@@ -373,7 +374,7 @@ alt_bn128_Fq12 alt_bn128_ate_miller_loop(const alt_bn128_ate_G1_precomp &prec_P,
     alt_bn128_Fq12 f = alt_bn128_Fq12::one();
 
     bool found_one = false;
-    unsigned long long idx = 0;
+    size_t idx = 0;
 
     const bigint<alt_bn128_Fr::num_limbs> &loop_count = alt_bn128_ate_loop_count;
     alt_bn128_ate_ell_coeffs c;
@@ -429,7 +430,7 @@ alt_bn128_Fq12 alt_bn128_ate_double_miller_loop(const alt_bn128_ate_G1_precomp &
     alt_bn128_Fq12 f = alt_bn128_Fq12::one();
 
     bool found_one = false;
-    unsigned long long idx = 0;
+    size_t idx = 0;
 
     const bigint<alt_bn128_Fr::num_limbs> &loop_count = alt_bn128_ate_loop_count;
     for (long i = loop_count.max_bits(); i >= 0; --i)

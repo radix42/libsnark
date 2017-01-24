@@ -9,6 +9,7 @@
 
 #ifndef BIGINT_TCC_
 #define BIGINT_TCC_
+#include <iostream>
 #include <cassert>
 #include <climits>
 #include <cstring>
@@ -51,6 +52,7 @@ bigint<n>::bigint(const mpz_t r) /// Initialize from MPZ element
     for (size_t i = 0; i < n; ++i)
     {
         data[i] = mpz_get_ui(k);
+        printf("%llu\n", data[i]);
         mpz_fdiv_q_2exp(k, k, GMP_NUMB_BITS);
     }
 
@@ -145,8 +147,9 @@ void bigint<n>::to_mpz(mpz_t r) const
 
     for (int i = n-1; i >= 0; --i)
     {
-        mpz_mul_2exp(r, r, GMP_NUMB_BITS);
-        mpz_add_ui(r, r, this->data[i]);
+        mpz_mul_2exp(r, r, GMP_NUMB_BITS); // shift left x bits
+        mpz_add_ui(r, r, this->data[i]); // 
+        printf("%llu\n", this->data[i]);
     }
 }
 
@@ -233,6 +236,7 @@ bigint<n>& bigint<n>::randomize()
 }
 
 
+/*
 template<mp_size_t n>
 std::ostream& operator<<(std::ostream &out, const bigint<n> &b)
 {
@@ -249,6 +253,7 @@ std::ostream& operator<<(std::ostream &out, const bigint<n> &b)
 #endif
     return out;
 }
+*/
 
 template<mp_size_t n>
 std::istream& operator>>(std::istream &in, bigint<n> &b)

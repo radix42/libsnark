@@ -5,7 +5,7 @@
  * @copyright  MIT license (see LICENSE file)
  *****************************************************************************/
 
-#include <iostream>
+#include <cstdlib>
 #include "algebra/fields/bigint.hpp"
 
 using namespace libsnark;
@@ -24,6 +24,12 @@ void test_bigint()
     bigint<1> b0 = bigint<1>(0ull);
     bigint<1> b1 = bigint<1>(b1_decimal);
     bigint<2> b2 = bigint<2>(b2_decimal);
+    bigint<2> b3d = bigint<2>(b3_decimal);
+    printf("mp_size_t: %llu\n", sizeof(mp_size_t));
+    printf("mpz_t: %llu\n", sizeof(mpz_t));
+    printf("GMP_NUMB_BITS: %lu\n", sizeof(GMP_NUMB_BITS));
+    printf("GMP_LIMB_BITS: %lu\n", sizeof(GMP_LIMB_BITS));
+    b3d.print();
 
     assert(b0.as_ulong() == 0ul);
     assert(b0.is_zero());
@@ -41,6 +47,7 @@ void test_bigint()
     }
 
     bigint<3> b3 = b2 * b1;
+    b3.print();
 
     assert(b3 == bigint<3>(b3_decimal));
     assert(!(b3.is_zero()));
@@ -54,15 +61,18 @@ void test_bigint()
     mpz_init(m3);
     b3.to_mpz(m3);
     bigint<3> b3b { m3 };
+    b3b.print();
+    b3.print();
     assert(b3b == b3);
 
-    bigint<2> quotient;
-    bigint<2> remainder;
-    bigint<3>::div_qr(quotient, remainder, b3, b2);
+    /*
+    bigint<6> quotient;
+    bigint<6> remainder;
+    bigint<6>::div_qr(quotient, remainder, b3, b2);
     assert(quotient.num_bits() < GMP_NUMB_BITS);
     assert(quotient.as_ulong() == b1.as_ulong());
-    bigint<1> b1inc = bigint<1>("76749408");
-    bigint<1> b1a = quotient.shorten(b1inc, "test");
+    bigint<6> b1inc = bigint<6>("76749408");
+    bigint<6> b1a = quotient.shorten(b1inc, "test");
     assert(b1a == b1);
     assert(remainder.is_zero());
     remainder.limit(b2, "test");
@@ -76,13 +86,13 @@ void test_bigint()
         assert(false);
     } catch (std::domain_error) {}
 
-    bigint<1> br = bigint<1>("42");
+    bigint<6> br = bigint<6>("42");
     b3 += br;
     assert(b3 != b3a);
     assert(b3 > b3a);
     assert(!(b3a > b3));
 
-    bigint<3>::div_qr(quotient, remainder, b3, b2);
+    bigint<6>::div_qr(quotient, remainder, b3, b2);
     assert(quotient.num_bits() < GMP_NUMB_BITS);
     assert(quotient.as_ulong() == b1.as_ulong());
     assert(remainder.num_bits() < GMP_NUMB_BITS);
@@ -92,7 +102,7 @@ void test_bigint()
     assert(b3a.is_zero());
     assert(b3a.num_bits() == 0);
     assert(!(b3.is_zero()));
-
+    */
     bigint<4> bx = bigint<4>().randomize();
     bigint<4> by = bigint<4>().randomize();
     assert(!(bx == by));

@@ -4,6 +4,7 @@
  *             and contributors (see AUTHORS).
  * @copyright  MIT license (see LICENSE file)
  *****************************************************************************/
+#include <iostream>
 #include "common/profiling.hpp"
 //#include "algebra/curves/edwards/edwards_pp.hpp"
 #ifdef CURVE_BN128
@@ -21,10 +22,11 @@ void pairing_test()
     GT<ppT> GT_one = GT<ppT>::one();
 
     printf("Running bilinearity tests:\n");
-    G1<ppT> P = (Fr<ppT>::random_element()) * G1<ppT>::one();
-    //G1<ppT> P = Fr<ppT>("2") * G1<ppT>::one();
-    G2<ppT> Q = (Fr<ppT>::random_element()) * G2<ppT>::one();
-    //G2<ppT> Q = Fr<ppT>("3") * G2<ppT>::one();
+    //G1<ppT> P = (Fr<ppT>::random_element()) * G1<ppT>::one();
+    //printf("%llu\n", Fr<ppT>::random_element());
+    G1<ppT> P = Fr<ppT>("2") * G1<ppT>::one();
+    //G2<ppT> Q = (Fr<ppT>::random_element()) * G2<ppT>::one();
+    G2<ppT> Q = Fr<ppT>("3") * G2<ppT>::one();
 
     printf("P:\n");
     P.print();
@@ -34,8 +36,8 @@ void pairing_test()
     Q.print_coordinates();
     printf("\n\n");
 
-    Fr<ppT> s = Fr<ppT>::random_element();
-    //Fr<ppT> s = Fr<ppT>("2");
+    //Fr<ppT> s = Fr<ppT>::random_element();
+    Fr<ppT> s = Fr<ppT>("2");
     G1<ppT> sP = s * P;
     G2<ppT> sQ = s * Q;
 
@@ -44,11 +46,11 @@ void pairing_test()
     GT<ppT> ans2 = ppT::reduced_pairing(P, sQ);
     GT<ppT> ans3 = ppT::reduced_pairing(P, Q)^s;
     ans1.print();
-    printf("\n");
+    printf("\n\n");
     ans2.print();
-    printf("\n");
+    printf("\n\n");
     ans3.print();
-    printf("\n");
+    printf("\n\n");
     assert(ans1 == ans2);
     assert(ans2 == ans3);
 

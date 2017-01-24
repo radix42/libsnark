@@ -480,7 +480,7 @@ std::istream& operator>>(std::istream& in, std::vector<alt_bn128_G1> &v)
 {
     v.clear();
 
-    unsigned long long s;
+    size_t s;
     in >> s;
     consume_newline(in);
 

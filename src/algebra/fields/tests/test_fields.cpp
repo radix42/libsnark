@@ -5,6 +5,8 @@
  * @copyright  MIT license (see LICENSE file)
  *****************************************************************************/
 #include "common/profiling.hpp"
+#include "common/serialization.hpp"
+#include "algebra/fields/bigint.hpp"
 /*
 #include "algebra/curves/edwards/edwards_pp.hpp"
 #include "algebra/curves/mnt/mnt4/mnt4_pp.hpp"

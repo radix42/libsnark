@@ -65,9 +65,15 @@ void alt_bn128_G1::to_affine_coordinates()
         this->X = alt_bn128_Fq::zero();
         this->Y = alt_bn128_Fq::one();
         this->Z = alt_bn128_Fq::zero();
+        gmp_printf("Z zero:\n");
+        Z.print();
+
     }
     else
     {
+        gmp_printf("Z:\n");
+        Z.print();
+
         alt_bn128_Fq Z_inv = Z.inverse();
         alt_bn128_Fq Z2_inv = Z_inv.squared();
         alt_bn128_Fq Z3_inv = Z2_inv * Z_inv;

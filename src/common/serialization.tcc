@@ -67,7 +67,7 @@ template<typename T>
 T reserialize(const T &obj)
 {
     std::stringstream ss;
-    //ss << obj;
+    ss << obj;
     T tmp;
     ss >> tmp;
     assert_except(obj == tmp);

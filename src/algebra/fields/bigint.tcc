@@ -236,7 +236,6 @@ bigint<n>& bigint<n>::randomize()
 }
 
 
-/*
 template<mp_size_t n>
 std::ostream& operator<<(std::ostream &out, const bigint<n> &b)
 {
@@ -253,7 +252,6 @@ std::ostream& operator<<(std::ostream &out, const bigint<n> &b)
 #endif
     return out;
 }
-*/
 
 template<mp_size_t n>
 std::istream& operator>>(std::istream &in, bigint<n> &b)

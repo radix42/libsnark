@@ -41,10 +41,17 @@ void pairing_test()
     G1<ppT> sP = s * P;
     G2<ppT> sQ = s * Q;
 
+    sP.print_coordinates();
+    sQ.print_coordinates();
+
+
     printf("Pairing bilinearity tests (three must match):\n");
     GT<ppT> ans1 = ppT::reduced_pairing(sP, Q);
     GT<ppT> ans2 = ppT::reduced_pairing(P, sQ);
     GT<ppT> ans3 = ppT::reduced_pairing(P, Q)^s;
+
+    std::cout << ans1 << std::endl;
+
     ans1.print();
     printf("\n\n");
     ans2.print();

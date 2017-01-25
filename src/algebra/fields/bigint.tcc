@@ -52,7 +52,6 @@ bigint<n>::bigint(const mpz_t r) /// Initialize from MPZ element
     for (size_t i = 0; i < n; ++i)
     {
         data[i] = mpz_get_ui(k);
-        printf("%llu\n", data[i]);
         mpz_fdiv_q_2exp(k, k, GMP_NUMB_BITS);
     }
 
@@ -149,7 +148,6 @@ void bigint<n>::to_mpz(mpz_t r) const
     {
         mpz_mul_2exp(r, r, GMP_NUMB_BITS); // shift left x bits
         mpz_add_ui(r, r, this->data[i]); // 
-        printf("%llu\n", this->data[i]);
     }
 }
 

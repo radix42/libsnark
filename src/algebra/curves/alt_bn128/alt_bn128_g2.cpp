@@ -78,8 +78,6 @@ void alt_bn128_G2::to_affine_coordinates()
     }
     else
     {
-        gmp_printf("Z:\n");
-        Z.print();
         alt_bn128_Fq2 Z_inv = Z.inverse();
         alt_bn128_Fq2 Z2_inv = Z_inv.squared();
         alt_bn128_Fq2 Z3_inv = Z2_inv * Z_inv;

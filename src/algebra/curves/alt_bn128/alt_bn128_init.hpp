@@ -15,9 +15,6 @@
 
 namespace libsnark {
 
-//const mp_size_t alt_bn128_r_bitcount = 254;
-//const mp_size_t alt_bn128_q_bitcount = 254;
-
 const mp_size_t alt_bn128_r_bitcount = 254;
 const mp_size_t alt_bn128_q_bitcount = 254;
 

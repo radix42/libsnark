@@ -4,14 +4,17 @@
  *             and contributors (see AUTHORS).
  * @copyright  MIT license (see LICENSE file)
  *****************************************************************************/
+#include <iostream>
 #include "common/profiling.hpp"
-#include "algebra/curves/edwards/edwards_pp.hpp"
+//#include "algebra/curves/edwards/edwards_pp.hpp"
 #ifdef CURVE_BN128
 #include "algebra/curves/bn128/bn128_pp.hpp"
 #endif
 #include "algebra/curves/alt_bn128/alt_bn128_pp.hpp"
-#include "algebra/curves/mnt/mnt4/mnt4_pp.hpp"
-#include "algebra/curves/mnt/mnt6/mnt6_pp.hpp"
+//#include "algebra/curves/mnt/mnt4/mnt4_pp.hpp"
+//#include "algebra/curves/mnt/mnt6/mnt6_pp.hpp"
+#include "algebra/curves/alt_bn128/alt_bn128_pairing.hpp"
+#include "algebra/curves/alt_bn128/alt_bn128_pairing.cpp"
 
 using namespace libsnark;
 

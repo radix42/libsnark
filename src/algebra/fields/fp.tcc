@@ -684,13 +684,13 @@ Fp_model<n, modulus> Fp_model<n,modulus>::random_element() /// returns random el
         r.mont_repr.randomize();
 
         /* clear all bits higher than MSB of modulus */
-        size_t bitno = GMP_NUMB_BITS * n - 1;
+        unsigned long long bitno = GMP_NUMB_BITS * n - 1;
         while (modulus.test_bit(bitno) == false)
         {
-            const std::size_t part = bitno/GMP_NUMB_BITS;
-            const std::size_t bit = bitno - (GMP_NUMB_BITS*part);
+            const unsigned long long part = bitno/GMP_NUMB_BITS;
+            const unsigned long long bit = bitno - (GMP_NUMB_BITS*part);
 
-            r.mont_repr.data[part] &= ~(UINT64_C(1)<<bit);
+            r.mont_repr.data[part] &= ~(1ull<<bit);
 
             bitno--;
         }
@@ -710,7 +710,7 @@ Fp_model<n,modulus> Fp_model<n,modulus>::sqrt() const
 
     Fp_model<n,modulus> one = Fp_model<n,modulus>::one();
 
-    size_t v = Fp_model<n,modulus>::s;
+    unsigned long long v = Fp_model<n,modulus>::s;
     Fp_model<n,modulus> z = Fp_model<n,modulus>::nqr_to_t;
     Fp_model<n,modulus> w = (*this)^Fp_model<n,modulus>::t_minus_1_over_2;
     Fp_model<n,modulus> x = (*this) * w;
@@ -734,7 +734,7 @@ Fp_model<n,modulus> Fp_model<n,modulus>::sqrt() const
 
     while (b != one)
     {
-        size_t m = 0;
+        unsigned long long m = 0;
         Fp_model<n,modulus> b2m = b;
         while (b2m != one)
         {

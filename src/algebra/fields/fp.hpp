@@ -107,12 +107,12 @@ public:
     Fp_model inverse() const;
     Fp_model sqrt() const; // HAS TO BE A SQUARE (else does not terminate)
 
-    Fp_model operator^(const uint64_t pow) const;
+    Fp_model operator^(const unsigned long long pow) const;
     template<mp_size_t m>
     Fp_model operator^(const bigint<m> &pow) const;
 
-    static size_t size_in_bits() { return num_bits; }
-    static size_t capacity() { return num_bits - 1; }
+    static unsigned long long size_in_bits() { return num_bits; }
+    static unsigned long long capacity() { return num_bits - 1; }
     static bigint<n> field_char() { return modulus; }
 
     static Fp_model<n, modulus> zero();
@@ -125,29 +125,29 @@ public:
 
 #ifdef PROFILE_OP_COUNTS
 template<mp_size_t n, const bigint<n>& modulus>
-int64_t Fp_model<n, modulus>::add_cnt = 0;
+long long Fp_model<n, modulus>::add_cnt = 0;
 
 template<mp_size_t n, const bigint<n>& modulus>
-int64_t Fp_model<n, modulus>::sub_cnt = 0;
+long long Fp_model<n, modulus>::sub_cnt = 0;
 
 template<mp_size_t n, const bigint<n>& modulus>
-int64_t Fp_model<n, modulus>::mul_cnt = 0;
+long long Fp_model<n, modulus>::mul_cnt = 0;
 
 template<mp_size_t n, const bigint<n>& modulus>
-int64_t Fp_model<n, modulus>::sqr_cnt = 0;
+long long Fp_model<n, modulus>::sqr_cnt = 0;
 
 template<mp_size_t n, const bigint<n>& modulus>
-int64_t Fp_model<n, modulus>::inv_cnt = 0;
+long long Fp_model<n, modulus>::inv_cnt = 0;
 #endif
 
 template<mp_size_t n, const bigint<n>& modulus>
-size_t Fp_model<n, modulus>::num_bits;
+unsigned long long Fp_model<n, modulus>::num_bits;
 
 template<mp_size_t n, const bigint<n>& modulus>
 bigint<n> Fp_model<n, modulus>::euler;
 
 template<mp_size_t n, const bigint<n>& modulus>
-size_t Fp_model<n, modulus>::s;
+unsigned long long Fp_model<n, modulus>::s;
 
 template<mp_size_t n, const bigint<n>& modulus>
 bigint<n> Fp_model<n, modulus>::t;

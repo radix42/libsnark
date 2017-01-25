@@ -9,6 +9,7 @@
 
 #ifndef BIGINT_TCC_
 #define BIGINT_TCC_
+#include <iostream>
 #include <cassert>
 #include <climits>
 #include <cstring>

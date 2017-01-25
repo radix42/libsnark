@@ -15,6 +15,9 @@
 
 namespace libsnark {
 
+//const mp_size_t alt_bn128_r_bitcount = 254;
+//const mp_size_t alt_bn128_q_bitcount = 254;
+
 const mp_size_t alt_bn128_r_bitcount = 254;
 const mp_size_t alt_bn128_q_bitcount = 254;
 
@@ -44,6 +47,7 @@ extern alt_bn128_Fq2 alt_bn128_twist_mul_by_q_Y;
 // parameters for pairing
 extern bigint<alt_bn128_q_limbs> alt_bn128_ate_loop_count;
 extern bool alt_bn128_ate_is_loop_count_neg;
+//extern bigint<12*alt_bn128_q_limbs> alt_bn128_final_exponent;
 extern bigint<12*alt_bn128_q_limbs> alt_bn128_final_exponent;
 extern bigint<alt_bn128_q_limbs> alt_bn128_final_exponent_z;
 extern bool alt_bn128_final_exponent_is_z_neg;

@@ -690,7 +690,7 @@ Fp_model<n, modulus> Fp_model<n,modulus>::random_element() /// returns random el
             const unsigned long long part = bitno/GMP_NUMB_BITS;
             const unsigned long long bit = bitno - (GMP_NUMB_BITS*part);
 
-            r.mont_repr.data[part] &= ~(1ul<<bit);
+            r.mont_repr.data[part] &= ~(1ull<<bit);
 
             bitno--;
         }

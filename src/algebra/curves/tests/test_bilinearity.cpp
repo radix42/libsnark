@@ -13,6 +13,8 @@
 #include "algebra/curves/alt_bn128/alt_bn128_pp.hpp"
 //#include "algebra/curves/mnt/mnt4/mnt4_pp.hpp"
 //#include "algebra/curves/mnt/mnt6/mnt6_pp.hpp"
+#include "algebra/curves/alt_bn128/alt_bn128_pairing.hpp"
+#include "algebra/curves/alt_bn128/alt_bn128_pairing.cpp"
 
 using namespace libsnark;
 
@@ -45,12 +47,45 @@ void pairing_test()
     sQ.print_coordinates();
 
 
+    alt_bn128_Fq12 elt;
+    alt_bn128_ate_G1_precomp y = alt_bn128_ate_precompute_G1(sP);
+    alt_bn128_ate_G2_precomp z = alt_bn128_ate_precompute_G2(sQ);
+    alt_bn128_Fq12 xx = alt_bn128_ate_miller_loop(y, z);
+    std::cout << "ate_miller_loop: " << xx << std::endl;
+
+    //GT<ppT> zz = alt_bn128_final_exponentiation(xx);
+    //alt_bn128_Fq12 zzi = zz.inverse();
+    //std::cout << "final_exponentiation: " << zz << std::endl;
+    GT<ppT> xxi = xx.inverse();
+    std::cout << "elt inverse: " << xxi << std::endl;
+
+    alt_bn128_Fq12 A = alt_bn128_Fq12(xx.c0,-xx.c1);
+    std::cout << "A: " << A << std::endl;
+
+    alt_bn128_Fq12 C = A * xxi;
+    alt_bn128_Fq12 D = C.Frobenius_map(2);
+    std::cout << "C: " << C << std::endl;
+    std::cout << "D: " << D << std::endl;
+
+    alt_bn128_Fq12 result = D * C;
+    std::cout << "result: " << D << std::endl;
+
+    alt_bn128_Fq12 E =  D.cyclotomic_exp(bigint<100>("4965661367192848881"));
+    std::cout << "E: " << E << std::endl;
+
+    std::cout << "E unitary_inverse: " << E.unitary_inverse() << std::endl;
+
+    alt_bn128_Fq12 F = alt_bn128_exp_by_neg_z(E);
+    std::cout << "F: " << E << std::endl;
+
+    //exit(1);
+
     printf("Pairing bilinearity tests (three must match):\n");
     GT<ppT> ans1 = ppT::reduced_pairing(sP, Q);
     GT<ppT> ans2 = ppT::reduced_pairing(P, sQ);
     GT<ppT> ans3 = ppT::reduced_pairing(P, Q)^s;
 
-    std::cout << ans1 << std::endl;
+    //std::cout << "ans1: " << ans1 << std::endl;
 
     ans1.print();
     printf("\n\n");
@@ -103,6 +138,10 @@ void affine_pairing_test()
     Fr<ppT> s = Fr<ppT>::random_element();
     G1<ppT> sP = s * P;
     G2<ppT> sQ = s * Q;
+
+    alt_bn128_Fq12 elt;
+    alt_bn128_pp::init_public_params();
+    std::cout << "precompute_G1: " << alt_bn128_pp::precompute_G1(P) << std::endl; 
 
     printf("Pairing bilinearity tests (three must match):\n");
     GT<ppT> ans1 = ppT::affine_reduced_pairing(sP, Q);

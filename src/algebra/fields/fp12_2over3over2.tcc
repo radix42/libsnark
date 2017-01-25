@@ -172,9 +172,10 @@ Fp12_2over3over2_model<n,modulus> Fp12_2over3over2_model<n,modulus>::unitary_inv
 template<mp_size_t n, const bigint<n>& modulus>
 Fp12_2over3over2_model<n,modulus> Fp12_2over3over2_model<n,modulus>::cyclotomic_squared() const
 {
-    /* OLD: naive implementation
+    ///* OLD: naive implementation
        return (*this).squared();
-    */
+    //*/
+/*
     my_Fp2 z0 = this->c0.c0;
     my_Fp2 z4 = this->c0.c1;
     my_Fp2 z3 = this->c0.c2;
@@ -234,6 +235,7 @@ Fp12_2over3over2_model<n,modulus> Fp12_2over3over2_model<n,modulus>::cyclotomic_
     z5 = z5 + t3;
 
     return Fp12_2over3over2_model<n,modulus>(my_Fp6(z0,z4,z3),my_Fp6(z2,z1,z5));
+*/
 }
 
 template<mp_size_t n, const bigint<n>& modulus>
@@ -348,7 +350,7 @@ Fp12_2over3over2_model<n, modulus> Fp12_2over3over2_model<n,modulus>::cyclotomic
                 res = res.cyclotomic_squared();
             }
 
-            if (exponent.data[i] & (1ul<<j))
+            if (exponent.data[i] & (1ull<<j))
             {
                 found_one = true;
                 res = res * (*this);

@@ -24,6 +24,7 @@ alt_bn128_Fq2 alt_bn128_twist_mul_by_q_Y;
 
 bigint<alt_bn128_q_limbs> alt_bn128_ate_loop_count;
 bool alt_bn128_ate_is_loop_count_neg;
+//bigint<12*alt_bn128_q_limbss> alt_bn128_final_exponent;
 bigint<12*alt_bn128_q_limbs> alt_bn128_final_exponent;
 bigint<alt_bn128_q_limbs> alt_bn128_final_exponent_z;
 bool alt_bn128_final_exponent_is_z_neg;

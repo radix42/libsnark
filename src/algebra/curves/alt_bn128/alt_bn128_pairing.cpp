@@ -229,9 +229,8 @@ alt_bn128_GT alt_bn128_final_exponentiation(const alt_bn128_Fq12 &elt)
     /* OLD naive version:
         alt_bn128_GT result = elt^alt_bn128_final_exponent;
     */
-    alt_bn128_GT result = elt^alt_bn128_final_exponent;
-    //alt_bn128_Fq12 A = alt_bn128_final_exponentiation_first_chunk(elt);
-    //alt_bn128_GT result = alt_bn128_final_exponentiation_last_chunk(A);
+    alt_bn128_Fq12 A = alt_bn128_final_exponentiation_first_chunk(elt);
+    alt_bn128_GT result = alt_bn128_final_exponentiation_last_chunk(A);
 
     leave_block("Call to alt_bn128_final_exponentiation");
     return result;

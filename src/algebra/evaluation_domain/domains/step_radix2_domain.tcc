@@ -14,19 +14,18 @@
 #ifndef STEP_RADIX2_DOMAIN_TCC_
 
 #include "algebra/evaluation_domain/domains/basic_radix2_domain_aux.hpp"
-#include "common/assert_except.hpp"
 
 namespace libsnark {
 
 template<typename FieldT>
 step_radix2_domain<FieldT>::step_radix2_domain(const size_t m) : evaluation_domain<FieldT>(m)
 {
-    assert_except(m > 1);
+    assert(m > 1);
 
     big_m = UINT64_C(1)<<(log2(m)-1);
     small_m = m - big_m;
 
-    assert_except(small_m == UINT64_C(1)<<log2(small_m));
+    assert(small_m == UINT64_C(1)<<log2(small_m));
 
     omega = get_root_of_unity<FieldT>(UINT64_C(1)<<log2(m)); // rounded!
     big_omega = omega.squared();
@@ -36,7 +35,7 @@ step_radix2_domain<FieldT>::step_radix2_domain(const size_t m) : evaluation_doma
 template<typename FieldT>
 void step_radix2_domain<FieldT>::FFT(std::vector<FieldT> &a)
 {
-    assert_except(a.size() == this->m);
+    assert(a.size() == this->m);
     std::vector<FieldT> c(big_m, FieldT::zero());
     std::vector<FieldT> d(big_m, FieldT::zero());
 
@@ -75,7 +74,7 @@ void step_radix2_domain<FieldT>::FFT(std::vector<FieldT> &a)
 template<typename FieldT>
 void step_radix2_domain<FieldT>::iFFT(std::vector<FieldT> &a)
 {
-    assert_except(a.size() == this->m);
+    assert(a.size() == this->m);
 
     std::vector<FieldT> U0(a.begin(), a.begin() + big_m);
     std::vector<FieldT> U1(a.begin() + big_m, a.end());
@@ -204,7 +203,7 @@ FieldT step_radix2_domain<FieldT>::compute_Z(const FieldT &t)
 template<typename FieldT>
 void step_radix2_domain<FieldT>::add_poly_Z(const FieldT &coeff, std::vector<FieldT> &H)
 {
-    assert_except(H.size() == this->m+1);
+    assert(H.size() == this->m+1);
     const FieldT omega_to_small_m = omega^small_m;
 
     H[this->m] += coeff;

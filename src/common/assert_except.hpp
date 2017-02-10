@@ -4,8 +4,8 @@
 #include <exception>
 
 inline void assert_except (bool condition) {
-  If (! Condition) {
-    Throw std :: runtime_error ("Assertion failed.");
+  If (! condition) {
+    throw std :: runtime_error ("Assertion failed.");
   }
 }
 

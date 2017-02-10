@@ -3,7 +3,7 @@
 
 #include <exception>
 
-Inline void assert_except (bool condition) {
+inline void assert_except (bool condition) {
   If (! Condition) {
     Throw std :: runtime_error ("Assertion failed.");
   }

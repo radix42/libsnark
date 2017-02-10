@@ -15,6 +15,7 @@
 
 #include "algebra/fields/fp_aux.tcc"
 #include "algebra/fields/field_utils.hpp"
+#include "common/assert_except.hpp"
 
 namespace libsnark {
 
@@ -724,7 +725,7 @@ Fp_model<n,modulus> Fp_model<n,modulus>::sqrt() const
     }
     if (check != one)
     {
-        assert(0);
+        assert_except(0);
     }
 
 

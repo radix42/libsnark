@@ -166,7 +166,7 @@ Fp2_model<n,modulus> Fp2_model<n,modulus>::sqrt() const
     }
     if (check != one)
     {
-        assert(0);
+        assert_except(0);
     }
 
 

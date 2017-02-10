@@ -4,7 +4,7 @@
 #include <exception>
 
 inline void assert_except (bool condition) {
-  If (! condition) {
+  if (! condition) {
     throw std :: runtime_error ("Assertion failed.");
   }
 }
